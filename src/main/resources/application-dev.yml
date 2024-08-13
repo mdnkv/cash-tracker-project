@@ -1,0 +1,12 @@
+application:
+  security:
+    jwt-secret: r2rqf_22yrd_35n&%$o4zfh_7%tl%w0hcd)g6o-&&yw+kbgy8)
+    cors-origin: http://localhost:4200
+spring:
+  datasource:
+    username: iu_project_user
+    password: secret
+    url: jdbc:mysql://localhost:3306/iu_project_db
+  jpa:
+    hibernate:
+      ddl-auto: validate
