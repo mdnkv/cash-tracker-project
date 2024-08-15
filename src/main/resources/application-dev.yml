@@ -6,7 +6,7 @@ spring:
   datasource:
     username: iu_project_user
     password: secret
-    url: jdbc:mysql://localhost:3306/iu_project_db
+    url: jdbc:mariadb://localhost:3306/iu_project_db
   jpa:
     hibernate:
       ddl-auto: validate

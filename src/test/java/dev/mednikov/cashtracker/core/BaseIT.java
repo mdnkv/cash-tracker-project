@@ -8,7 +8,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.containers.MariaDBContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @ActiveProfiles("test")
@@ -21,10 +21,10 @@ public class BaseIT {
     @Autowired
     protected TestRestTemplate testRestTemplate;
 
-    private static MySQLContainer container = new MySQLContainer("mysql:8.4.0")
+    private final static MariaDBContainer<?> container = new MariaDBContainer<>("mariadb:11.4")
             .withUsername("user")
             .withPassword("password")
-            .withDatabaseName("testdb");
+            .withDatabaseName("test_db");
 
     @DynamicPropertySource
     static void setContainer (DynamicPropertyRegistry registry) {
