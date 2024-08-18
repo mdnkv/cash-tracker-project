@@ -61,6 +61,7 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryDto> getAllCategories(Long ownerId) {
         return this.categoryRepository.findAllByOwner_Id(ownerId)
                 .stream()
+                .sorted()
                 .map(mapper)
                 .toList();
     }
