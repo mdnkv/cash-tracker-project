@@ -44,11 +44,7 @@ public class CategoryRestController {
     @GetMapping("/one/{id}")
     public ResponseEntity<CategoryDto> getCategoryById(@PathVariable Long id){
         Optional<CategoryDto> result = this.categoryService.getCategory(id);
-        if (result.isPresent()) {
-            return ResponseEntity.ok(result.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.of(result);
     }
 
     @GetMapping("/list")
