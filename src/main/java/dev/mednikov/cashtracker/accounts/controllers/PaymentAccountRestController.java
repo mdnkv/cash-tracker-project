@@ -45,11 +45,7 @@ public class PaymentAccountRestController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<PaymentAccountDto> getAccount(@PathVariable Long id) {
         Optional<PaymentAccountDto> result = this.paymentAccountService.getAccount(id);
-        if (result.isPresent()) {
-            return ResponseEntity.ok(result.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.of(result);
     }
 
     @GetMapping("/list")
