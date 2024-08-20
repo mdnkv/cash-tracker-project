@@ -19,13 +19,13 @@ import java.util.List;
 @EnableWebSecurity
 public class AuthenticationConfiguration {
 
-    private final JwtFilter jwtFilter;
+    private final TokenFilter filter;
     private final String corsOrigin;
 
     public AuthenticationConfiguration(
-            JwtFilter jwtFilter, @Value("${application.security.cors-origin}") String corsOrigin)
+            TokenFilter filter, @Value("${application.security.cors-origin}") String corsOrigin)
     {
-        this.jwtFilter = jwtFilter;
+        this.filter = filter;
         this.corsOrigin = corsOrigin;
     }
 
@@ -50,10 +50,9 @@ public class AuthenticationConfiguration {
                 .authorizeHttpRequests(req ->
                         req
                                 .requestMatchers("/error/**").permitAll()
-                                .requestMatchers("/", "/index.html**", "/*.css", "/*.js", "/media/**").permitAll()
                                 .requestMatchers("/api/users/create-user", "/api/users/login").permitAll()
                                 .requestMatchers("/api/**").authenticated())
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 }
