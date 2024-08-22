@@ -1,0 +1,32 @@
+<nav class="navbar is-primary is-fixed-top">
+  <div class="navbar-brand">
+    <button
+      type="button"
+      class="navbar-burger"
+      aria-label="menu"
+      aria-expanded="false"
+      (click)="toggleMenu()"
+      [class.is-active]="isShowMenu"
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="navbar-menu" [class.is-active]="isShowMenu">
+    @if (isAuthenticated) {
+      <div class="navbar-start">
+        <a [routerLink]="['/dashboard']" class="navbar-item">Dashboard</a>
+      </div>
+      <div class="navbar-end">
+        <a (click)="logout()" class="navbar-item">Log out</a>
+      </div>
+    } @else {
+      <div class="navbar-end">
+        <a [routerLink]="['/users/login']" class="navbar-item">Login</a>
+        <a [routerLink]="['/users/signup']" class="navbar-item">Signup</a>
+      </div>
+    }
+  </div>
+</nav>

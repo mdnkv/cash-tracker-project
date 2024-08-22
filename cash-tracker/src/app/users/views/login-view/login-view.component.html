@@ -1,0 +1,104 @@
+<div class="columns is-centered">
+  <div class="column is-5-desktop is-8-tablet is-full-mobile">
+    <!-- Errors -->
+    @if (isError) {
+      <div class="message is-danger">
+        <div class="message-body">
+          <p class="is-size-5">Oops..! :(</p>
+          <p>Seems your email address or password are not correct. Please try again</p>
+        </div>
+      </div>
+    }
+
+    <!-- Header    -->
+    <div class="block has-text-centered">
+      <p class="title is-2">Nice to see you back!</p>
+      <p class="subtitle is-4 has-text-grey">Please login in order to use our app</p>
+    </div>
+
+    <!-- Main body    -->
+    <div class="block">
+      <div class="box">
+        <form [formGroup]="form" (submit)="onSubmit()">
+          <!-- Email field -->
+          <div class="field">
+            <label class="label">Email address</label>
+            <div class="control has-icons-left">
+              <input
+                type="text"
+                class="input"
+                placeholder=""
+                formControlName="email"
+                [class.is-danger]="form.get('email')?.touched && !form.get('email')?.valid"
+                [class.is-success]="form.get('email')?.touched && form.get('email')?.valid"
+              >
+              <span class="icon is-left">
+                <i class="bx bx-envelope"></i>
+              </span>
+            </div>
+            @if (form.get('email')?.touched && !form.get('email')?.valid) {
+              <p class="help is-danger">
+                <span class="icon">
+                  <i class="bx bx-error"></i>
+                </span>
+                <span>This field cannot be empty</span>
+              </p>
+            }
+          </div>
+
+          <!-- Password field -->
+          <div class="field">
+            <label class="label">Password</label>
+            <div class="control has-icons-left has-icons-right">
+              <input
+                class="input"
+                formControlName="password"
+                [type]="isShowPassword ? 'text' : 'password'"
+                [class.is-danger]="form.get('password')?.touched && !form.get('password')?.valid"
+                [class.is-success]="form.get('password')?.touched && form.get('password')?.valid"
+              >
+              <span class="icon is-left">
+                <i class="bx bx-lock-alt"></i>
+              </span>
+              <span class="icon is-right is-clickable" (click)="togglePassword()">
+                @if (isShowPassword) {
+                  <i class="bx bx-low-vision"></i>
+                } @else {
+                  <i class="bx bx-show"></i>
+                }
+              </span>
+            </div>
+            @if (form.get('password')?.touched && !form.get('password')?.valid) {
+              <p class="help is-danger">
+                <span class="icon">
+                  <i class="bx bx-error"></i>
+                </span>
+                <span>This field cannot be empty</span>
+              </p>
+            }
+          </div>
+
+
+          <button
+            class="button is-primary is-fullwidth"
+            type="submit"
+            [class.is-loading]="isFormLoading"
+            [disabled]="!form.valid"
+          >
+            <span>Login</span>
+          </button>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer    -->
+    <div class="block">
+      <div class="box">
+        <p class="has-text-centered block">Do not have an account yet?</p>
+        <a [routerLink]="['/users/signup']" class="button is-fullwidth">Sign up today</a>
+      </div>
+    </div>
+
+  </div>
+</div>
