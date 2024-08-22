@@ -4,7 +4,12 @@ import {BehaviorSubject, map, Observable} from "rxjs";
 
 import {environment} from "../../../environments/environment";
 
-import {LoginRequest, LoginResponse, SignupRequest, SignupResponse} from "../models/users.models";
+import {
+  LoginRequest,
+  LoginResponse,
+  SignupRequest,
+  SignupResponse
+} from "../models/users.models";
 
 
 @Injectable({

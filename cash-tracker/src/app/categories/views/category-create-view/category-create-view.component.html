@@ -1,0 +1,75 @@
+<div class="columns is-centered">
+  <div class="column is-4-desktop is-8-tablet is-full-mobile">
+
+    <p class="title is-4">Add new category</p>
+
+    @if(isError){
+      <div class="message is-danger">
+        <div class="message-body">
+          <p>Something went wrong. Please try again later</p>
+        </div>
+      </div>
+    }
+
+    <form [formGroup]="form" (submit)="onSubmit()">
+
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input
+            type="text"
+            class="input"
+            [class.is-success]="form.get('name')?.touched && form.get('name')?.valid"
+            [class.is-danger]="form.get('name')?.touched && !form.get('name')?.valid"
+            formControlName="name"
+          >
+        </div>
+        @if (form.get('name')?.touched && !form.get('name')?.valid) {
+          <p class="help is-danger">
+            <span class="icon"></span>
+            <span>This field cannot be blank</span>
+          </p>
+        }
+      </div>
+
+      <div class="field">
+        <label class="label">Accent color</label>
+        <div class="control">
+          <input
+            type="color"
+            class="input"
+            [class.is-success]="form.get('color')?.touched && form.get('color')?.valid"
+            [class.is-danger]="form.get('color')?.touched && !form.get('color')?.valid"
+            formControlName="color"
+          >
+        </div>
+        @if (form.get('color')?.touched && !form.get('color')?.valid) {
+          <p class="help is-danger">
+            <span class="icon"></span>
+            <span>This field cannot be blank</span>
+          </p>
+        }
+      </div>
+
+      <div class="field">
+        <label class="label">Description</label>
+        <div class="control">
+          <textarea class="textarea has-fixed-size" formControlName="description"></textarea>
+        </div>
+      </div>
+
+      <div class="block buttons">
+        <button
+          class="button is-primary"
+          type="submit"
+          [class.is-loading]="isFormLoading"
+          [disabled]="!form.valid"
+        >Create</button>
+
+        <button class="button" type="button" (click)="onCancelClicked()">Cancel</button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

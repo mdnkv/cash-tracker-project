@@ -18,6 +18,7 @@
     @if (isAuthenticated) {
       <div class="navbar-start">
         <a [routerLink]="['/dashboard']" class="navbar-item">Dashboard</a>
+        <a [routerLink]="['/categories']" class="navbar-item">Categories</a>
       </div>
       <div class="navbar-end">
         <a (click)="logout()" class="navbar-item">Log out</a>
