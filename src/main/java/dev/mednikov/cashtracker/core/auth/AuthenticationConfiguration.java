@@ -50,6 +50,7 @@ public class AuthenticationConfiguration {
                 .authorizeHttpRequests(req ->
                         req
                                 .requestMatchers("/error/**").permitAll()
+                                .requestMatchers("/", "/index.html**", "/*.css", "/*.js", "/media/**").permitAll()
                                 .requestMatchers("/api/users/create-user", "/api/users/login").permitAll()
                                 .requestMatchers("/api/**").authenticated())
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
