@@ -1,0 +1,167 @@
+<div class="columns is-centered">
+  <div class="column is-5-desktop is-8-tablet is-full-mobile">
+    <!-- Errors -->
+    @if (isError) {
+      <div class="message is-danger">
+        <div class="message-body">
+          <p class="is-size-5">Oops..! :(</p>
+          <p>Something went wrong. Please try again later</p>
+        </div>
+      </div>
+    }
+    @if (isUserExist) {
+      <div class="message is-danger">
+        <div class="message-body">
+          <p class="is-size-5">User already exists :(</p>
+          <p>We are sorry but this email address is already registered with another user.</p>
+          <p>Is this your account? Please login</p>
+          <a [routerLink]="['/users/login']">Go to login</a>
+        </div>
+      </div>
+    }
+    @if (isSuccess) {
+      <div class="message is-success">
+        <div class="message-body">
+          <p>Congrats! Your account was successfully created! You can login now</p>
+          <a [routerLink]="['/users/login']">Go to login</a>
+        </div>
+      </div>
+    }
+
+    <!-- Header    -->
+    <div class="block has-text-centered">
+      <p class="title is-2">Hello!</p>
+      <p class="subtitle is-4 has-text-grey">It just takes a moment to create an account</p>
+    </div>
+
+    <!-- Main body    -->
+    <div class="block">
+      <div class="box">
+        <form [formGroup]="form" (submit)="onSubmit()">
+          <!-- Name field -->
+          <div class="field">
+            <label class="label">Your name</label>
+            <div class="control has-icons-left">
+              <input
+                type="text"
+                class="input"
+                placeholder=""
+                formControlName="name"
+                [class.is-danger]="form.get('name')?.touched && !form.get('name')?.valid"
+                [class.is-success]="form.get('name')?.touched && form.get('name')?.valid"
+              >
+              <span class="icon is-left">
+                <i class="bx bx-user"></i>
+              </span>
+            </div>
+            @if (form.get('name')?.touched && !form.get('name')?.valid) {
+              <p class="help is-danger">
+                <span class="icon">
+                  <i class="bx bx-error"></i>
+                </span>
+                <span>This field cannot be empty</span>
+              </p>
+            }
+          </div>
+
+          <!-- Email field -->
+          <div class="field">
+            <label class="label">Your email address</label>
+            <div class="control has-icons-left">
+              <input
+                type="text"
+                class="input"
+                placeholder=""
+                formControlName="email"
+                [class.is-danger]="form.get('email')?.touched && !form.get('email')?.valid"
+                [class.is-success]="form.get('email')?.touched && form.get('email')?.valid"
+              >
+              <span class="icon is-left">
+                <i class="bx bx-envelope"></i>
+              </span>
+            </div>
+            @if (form.get('email')?.touched && form.get('email')?.hasError('required')) {
+              <p class="help is-danger">
+                <span class="icon">
+                  <i class="bx bx-error"></i>
+                </span>
+                <span>This field cannot be empty</span>
+              </p>
+            }
+            @if (form.get('email')?.touched && form.get('email')?.hasError('email')){
+              <p class="help is-danger">
+                <span class="icon">
+                  <i class="bx bx-envelope"></i>
+                </span>
+                <span>Please provide a valid email address</span>
+              </p>
+            }
+          </div>
+
+          <!-- Password field -->
+          <div class="field">
+            <label class="label">Your password</label>
+            <div class="control has-icons-left has-icons-right">
+              <input
+                class="input"
+                formControlName="password"
+                [type]="isShowPassword ? 'text' : 'password'"
+                [class.is-danger]="form.get('password')?.touched && !form.get('password')?.valid"
+                [class.is-success]="form.get('password')?.touched && form.get('password')?.valid"
+              >
+              <span class="icon is-left">
+                <i class="bx bx-lock-alt"></i>
+              </span>
+              <span class="icon is-right is-clickable" (click)="togglePassword()">
+                @if (isShowPassword) {
+                  <i class="bx bx-low-vision"></i>
+                } @else {
+                  <i class="bx bx-show"></i>
+                }
+              </span>
+            </div>
+            @if (form.get('password')?.touched && form.get('password')?.hasError('required')) {
+              <p class="help is-danger">
+                <span class="icon">
+                  <i class="bx bx-error"></i>
+                </span>
+                <span>This field cannot be empty</span>
+              </p>
+            }
+            @if (form.get('password')?.touched && form.get('password')?.hasError("minlength")){
+              <p class="help is-danger">
+                <span class="icon">
+                  <i class="bx bx-lock-alt"></i>
+                </span>
+                <span>Your password should contain at least 8 characters</span>
+              </p>
+            }
+          </div>
+
+          <div class="block has-text-grey has-text-centered">
+            <p class="is-size-7">When creating an account, you accept our Privacy Policy and Terms of Use</p>
+          </div>
+
+          <button
+            class="button is-primary is-fullwidth"
+            type="submit"
+            [class.is-loading]="isFormLoading"
+            [disabled]="!form.valid"
+          >
+            <span>Create account</span>
+          </button>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer    -->
+    <div class="block">
+      <div class="box">
+        <p class="has-text-centered block">Do you have an account already?</p>
+        <a [routerLink]="['/users/login']" class="button is-fullwidth">Log in</a>
+      </div>
+    </div>
+
+  </div>
+</div>
