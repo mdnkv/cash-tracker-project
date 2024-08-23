@@ -60,6 +60,14 @@
         <div class="control">
           <textarea class="textarea has-fixed-size" formControlName="description"></textarea>
         </div>
+        @if (form.get('description')?.touched && form.get('description')?.hasError('maxlength')){
+          <p class="help is-danger">
+            <span class="icon">
+              <i class="bx bx-error"></i>
+            </span>
+            <span>This field is too large. Description cannot exceed 250 characters in length</span>
+          </p>
+        }
       </div>
 
       <div class="block buttons">

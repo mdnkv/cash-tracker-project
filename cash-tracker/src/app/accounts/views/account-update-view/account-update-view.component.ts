@@ -32,7 +32,7 @@ export class AccountUpdateViewComponent implements OnInit{
   form: FormGroup = this.formBuilder.group({
     name: ['', [Validators.required]],
     accountType: ['Cash', [Validators.required]],
-    description: ['']
+    description: ['', [Validators.maxLength(250)]]
   })
 
   ngOnInit() {
