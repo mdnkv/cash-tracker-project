@@ -28,7 +28,7 @@ export class AccountCreateViewComponent{
   form: FormGroup = this.formBuilder.group({
     name: ['', [Validators.required]],
     accountType: ['Cash', [Validators.required]],
-    description: ['']
+    description: ['', [Validators.maxLength(250)]]
   })
 
 

@@ -2,7 +2,9 @@ package dev.mednikov.cashtracker.transactions.dto;
 
 import dev.mednikov.cashtracker.transactions.models.TransactionType;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -10,8 +12,8 @@ import java.time.LocalDate;
 public record TransactionDto(
         Long id,
         @NotNull Long ownerId,
-        @NotNull String description,
-        @NotNull String currency,
+        @NotNull @NotBlank @Size(max=250) String description,
+        @NotNull @NotBlank @Size(max = 3) String currency,
         @NotNull @Min(0) BigDecimal amount,
         @NotNull LocalDate transactionDate,
         @NotNull TransactionType type,

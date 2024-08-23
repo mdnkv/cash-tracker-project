@@ -38,7 +38,7 @@ export class CategoryCreateViewComponent implements OnInit{
   form: FormGroup = this.formBuilder.group({
     name: ['', [Validators.required]],
     color: ['', [Validators.required]],
-    description: ['']
+    description: ['', [Validators.maxLength(250)]]
   })
 
   ngOnInit() {
