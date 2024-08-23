@@ -1,13 +1,13 @@
 <div class="columns is-centered">
   <div class="column is-4-desktop is-8-tablet is-full-mobile">
 
-    <p class="title is-4">Update category</p>
+    <p class="title is-4">Update account</p>
 
     @if(isSuccess){
       <div class="message is-success">
         <div class="message-body">
-          <p>The category was updated!</p>
-          <a [routerLink]="['/categories']">Go back</a>
+          <p>The account was updated!</p>
+          <a [routerLink]="['/accounts']">Go back</a>
         </div>
       </div>
     }
@@ -28,7 +28,7 @@
           <input
             type="text"
             class="input"
-            [class.is-skeleton]="category == undefined"
+            [class.is-skeleton]="account == undefined"
             [class.is-success]="form.get('name')?.touched && form.get('name')?.valid"
             [class.is-danger]="form.get('name')?.touched && !form.get('name')?.valid"
             formControlName="name"
@@ -37,7 +37,9 @@
         @if (form.get('name')?.touched && !form.get('name')?.valid) {
           <p class="help is-danger">
             <span class="icon">
-              <i class="bx bx-error"></i>
+              <i class="bx bx-error">
+                <i class="bx bx-error"></i>
+              </i>
             </span>
             <span>This field cannot be blank</span>
           </p>
@@ -45,18 +47,19 @@
       </div>
 
       <div class="field">
-        <label class="label">Accent color</label>
+        <label class="label">Account type</label>
         <div class="control">
-          <input
-            type="color"
-            class="input"
-            [class.is-skeleton]="category == undefined"
-            [class.is-success]="form.get('color')?.touched && form.get('color')?.valid"
-            [class.is-danger]="form.get('color')?.touched && !form.get('color')?.valid"
-            formControlName="color"
-          >
+          <div class="select is-fullwidth" [class.is-skeleton]="account == undefined">
+            <select formControlName="accountType">
+              <option value="Cash">Cash</option>
+              <option value="Bank">Bank account</option>
+              <option value="CreditCard">Credit card</option>
+              <option value="EWallet">Electronic wallet (Paypal etc.)</option>
+              <option value="Cryptocurrency">Cryptocurrency account</option>
+            </select>
+          </div>
         </div>
-        @if (form.get('color')?.touched && !form.get('color')?.valid) {
+        @if (form.get('accountType')?.touched && !form.get('accountType')?.valid){
           <p class="help is-danger">
             <span class="icon">
               <i class="bx bx-error"></i>
@@ -66,13 +69,15 @@
         }
       </div>
 
+
+
       <div class="field">
         <label class="label">Description</label>
         <div class="control">
           <textarea
             class="textarea has-fixed-size"
             formControlName="description"
-            [class.is-skeleton]="category == undefined"></textarea>
+            [class.is-skeleton]="account == undefined"></textarea>
         </div>
       </div>
 
@@ -80,14 +85,14 @@
         <button
           class="button is-primary"
           type="submit"
-          [class.is-skeleton]="category == undefined"
+          [class.is-skeleton]="account == undefined"
           [class.is-loading]="isFormLoading"
           [disabled]="!form.valid"
         >Save</button>
 
         <button
           class="button"
-          [class.is-skeleton]="category == undefined"
+          [class.is-skeleton]="account == undefined"
           type="button"
           (click)="onCancelClicked()"
         >Cancel</button>

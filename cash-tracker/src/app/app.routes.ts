@@ -8,6 +8,9 @@ import {DashboardViewComponent} from "./dashboard/views/dashboard-view/dashboard
 import {CategoriesListComponent} from "./categories/views/categories-list/categories-list.component";
 import {CategoryCreateViewComponent} from "./categories/views/category-create-view/category-create-view.component";
 import {CategoryUpdateViewComponent} from "./categories/views/category-update-view/category-update-view.component";
+import {AccountCreateViewComponent} from "./accounts/views/account-create-view/account-create-view.component";
+import {AccountUpdateViewComponent} from "./accounts/views/account-update-view/account-update-view.component";
+import {AccountsListViewComponent} from "./accounts/views/accounts-list-view/accounts-list-view.component";
 
 export const routes: Routes = [
   {
@@ -38,4 +41,19 @@ export const routes: Routes = [
     component: CategoriesListComponent,
     canActivate: [IsAuthenticatedGuard()]
   },
+  {
+    path: 'accounts/create',
+    component: AccountCreateViewComponent,
+    canActivate: [IsAuthenticatedGuard()]
+  },
+  {
+    path: 'accounts/update/:id',
+    component: AccountUpdateViewComponent,
+    canActivate: [IsAuthenticatedGuard()]
+  },
+  {
+    path: 'accounts',
+    component: AccountsListViewComponent,
+    canActivate: [IsAuthenticatedGuard()]
+  }
 ];
