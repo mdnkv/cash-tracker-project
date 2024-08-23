@@ -26,7 +26,9 @@
         </div>
         @if (form.get('name')?.touched && !form.get('name')?.valid) {
           <p class="help is-danger">
-            <span class="icon"></span>
+            <span class="icon">
+              <i class="bx bx-error"></i>
+            </span>
             <span>This field cannot be blank</span>
           </p>
         }
@@ -45,7 +47,9 @@
         </div>
         @if (form.get('color')?.touched && !form.get('color')?.valid) {
           <p class="help is-danger">
-            <span class="icon"></span>
+            <span class="icon">
+              <i class="bx bx-error"></i>
+            </span>
             <span>This field cannot be blank</span>
           </p>
         }

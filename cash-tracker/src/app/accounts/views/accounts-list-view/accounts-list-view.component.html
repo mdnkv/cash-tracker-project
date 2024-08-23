@@ -1,0 +1,109 @@
+<!-- Header -->
+<div class="block">
+  <p class="title is-2">Accounts</p>
+  <p class="subtitle is-5 has-text-grey is-hidden-mobile">Manage your payment accounts here</p>
+</div>
+
+<!-- Toolbar -->
+<div class="block">
+  <div class="level">
+    <div class="level-left"></div>
+    <div class="level-right">
+      <div class="level-item">
+        <a
+          class="button is-primary"
+          [routerLink]="['/accounts/create']"
+          [class.is-skeleton]="!isLoaded"
+        >
+          <span class="icon">
+            <i class="bx bx-plus"></i>
+          </span>
+          <span>Add account</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Items list -->
+<div class="block">
+  @if (isLoaded) {
+    @if (accountsList.length == 0) {
+      <!-- Empty placeholder -->
+      <div class="message is-info">
+        <div class="message-body">
+          <p>You do not have any accounts yet</p>
+          <p>Maybe it is time to create one? :)</p>
+        </div>
+      </div>
+    } @else {
+      <!-- List categories here -->
+      @for (item of accountsList; track item.id) {
+        <div class="media">
+          <div class="media-left">
+            <div class="image is-48x48">
+              @switch(item.accountType){
+                @case('Cash'){
+                  <img src="/icons/icon-accounttype-cash.png" alt="Cash account">
+                }
+                @case('Bank'){
+                  <img src="/icons/icon-accounttype-bank.png" alt="Bank account">
+                }
+                @case('Cryptocurrency'){
+                  <img src="/icons/icon-accounttype-crypto.png" alt="Cryptocurrency">
+                }
+                @case('CreditCard'){
+                  <img src="/icons/icon-accounttype-creditcard.png" alt="Credit card">
+                }
+                @case('EWallet'){
+                  <img src="/icons/icon-accounttype-ewallet.png" alt="E-wallet application">
+                }
+              }
+            </div>
+          </div>
+          <div class="media-content">
+            <p class="is-size-5">{{item.name}}</p>
+          </div>
+          <div class="media-right">
+            <div class="dropdown is-hoverable is-right">
+              <div class="dropdown-trigger">
+                <button class="button" type="button">
+                  <span class="icon">
+                    <i class="bx bx-dots-vertical-rounded"></i>
+                  </span>
+                </button>
+              </div>
+              <div class="dropdown-menu">
+                <div class="dropdown-content">
+                  <a [routerLink]="['/accounts/update', item.id!]" class="dropdown-item">
+                    <span class="icon">
+                      <i class="bx bx-edit-alt"></i>
+                    </span>
+                    <span>Edit</span>
+                  </a>
+                  <a (click)="deleteAccount(item.id!)" class="dropdown-item">
+                    <span class="icon has-text-danger">
+                      <i class="bx bx-trash-alt"></i>
+                    </span>
+                    <span>Delete</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    }
+  } @else {
+    @if (isError) {
+      <div class="message is-danger">
+        <div class="message-body">
+          <p>Something went wrong!</p>
+          <p>Please try again later</p>
+        </div>
+      </div>
+    } @else {
+      <div class="is-skeleton"></div>
+    }
+  }
+</div>
