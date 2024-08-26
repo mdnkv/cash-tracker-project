@@ -1,0 +1,170 @@
+<div class="columns is-centered">
+  <div class="column is-4-desktop is-8-tablet is-full-mobile">
+
+    <p class="title is-4">Update transaction</p>
+
+    @if(isSuccess){
+      <div class="message is-success">
+        <div class="message-body">
+          <p>The transaction was updated!</p>
+          <a [routerLink]="['/transactions']">Go back</a>
+        </div>
+      </div>
+    }
+
+    @if(isError){
+      <div class="message is-danger">
+        <div class="message-body">
+          <p>Something went wrong. Please try again later</p>
+        </div>
+      </div>
+    }
+
+    <form [formGroup]="form" (submit)="onSubmit()">
+
+      <div class="field">
+        <label class="label">Description</label>
+        <div class="control">
+          <textarea
+            class="textarea has-fixed-size"
+            formControlName="description"
+            [class.is-skeleton]="transaction == undefined"
+            [class.is-danger]="form.get('description')?.touched && !form.get('description')?.valid"
+            [class.is-success]="form.get('description')?.touched && form.get('description')?.valid"
+          ></textarea>
+        </div>
+        @if (form.get('description')?.touched && form.get('description')?.hasError('required')) {
+          <p class="help is-danger">
+            <span class="icon">
+              <i class="bx bx-error"></i>
+            </span>
+            <span>This cannot be empty</span>
+          </p>
+        }
+        @if (form.get('description')?.touched && form.get('description')?.hasError('maxlength')){
+          <p class="help is-danger">
+            <span class="icon">
+              <i class="bx bx-error"></i>
+            </span>
+            <span>This field is too large. Description cannot exceed 250 characters in length</span>
+          </p>
+        }
+      </div>
+
+      <div class="field">
+        <label class="label">Date</label>
+        <div class="control">
+          <input
+            type="date"
+            class="input"
+            formControlName="transactionDate"
+            [class.is-skeleton]="transaction == undefined"
+            [class.is-danger]="form.get('transactionDate')?.touched && !form.get('transactionDate')?.valid"
+            [class.is-success]="form.get('transactionDate')?.touched && form.get('transactionDate')?.valid"
+          >
+        </div>
+        @if (form.get('transactionDate')?.touched && form.get('transactionDate')?.hasError('required')) {
+          <p class="help is-danger">
+            <span class="icon">
+              <i class="bx bx-error"></i>
+            </span>
+            <span>This field cannot be empty</span>
+          </p>
+        }
+      </div>
+
+      <div class="field">
+        <label class="label">Transaction type</label>
+        <div class="control">
+          <div class="select is-fullwidth">
+            <select formControlName="type">
+              <option value="Expense">Expenses</option>
+              <option value="Income">Income</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Amount</label>
+        <div class="control">
+          <input
+            type="number"
+            class="input"
+            formControlName="amount"
+            [class.is-skeleton]="transaction == undefined"
+            [class.is-danger]="form.get('amount')?.touched && !form.get('amount')?.valid"
+            [class.is-success]="form.get('amount')?.touched && form.get('amount')?.valid"
+          >
+        </div>
+        @if (form.get('amount')?.touched && form.get('amount')?.hasError('required')) {
+          <p class="help is-danger">
+            <span class="icon">
+              <i class="bx bx-error"></i>
+            </span>
+            <span>This cannot field be empty</span>
+          </p>
+        }
+        @if (form.get('amount')?.touched && form.get('amount')?.hasError('min')) {
+          <p class="help is-danger">
+            <span class="icon">
+              <i class="bx bx-error"></i>
+            </span>
+            <span>The amount cannot be negative</span>
+          </p>
+        }
+      </div>
+
+      <div class="field">
+        <label class="label">Category</label>
+        <div class="control block" >
+          <div
+            class="select is-fullwidth"
+          >
+            <select formControlName="categoryId">
+              @for (category of categoriesList!; track category.id!) {
+                <option [value]="category.id!">{{category.name}}</option>
+              }
+            </select>
+          </div>
+        </div>
+        <a (click)="onCreateCategoryClicked()">Create category</a>
+      </div>
+
+      <div class="field">
+        <label class="label">Payment account</label>
+        <div class="control block" >
+          <div
+            class="select is-fullwidth"
+          >
+            <select formControlName="categoryId">
+              @for (account of accountsList!; track account.id!) {
+                <option [value]="account.id!">{{account.name}}</option>
+              }
+            </select>
+          </div>
+        </div>
+        <a (click)="onCreatePaymentAccountClicked()">Create payment account</a>
+      </div>
+
+
+      <div class="block buttons">
+        <button
+          class="button is-primary"
+          type="submit"
+          [class.is-skeleton]="transaction == undefined"
+          [class.is-loading]="isFormLoading"
+          [disabled]="!form.valid"
+        >Save</button>
+
+        <button
+          class="button"
+          type="button" (click)="onCancelClicked()"
+          [class.is-skeleton]="transaction == undefined"
+        >Cancel</button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

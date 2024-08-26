@@ -11,6 +11,15 @@ import {CategoryUpdateViewComponent} from "./categories/views/category-update-vi
 import {AccountCreateViewComponent} from "./accounts/views/account-create-view/account-create-view.component";
 import {AccountUpdateViewComponent} from "./accounts/views/account-update-view/account-update-view.component";
 import {AccountsListViewComponent} from "./accounts/views/accounts-list-view/accounts-list-view.component";
+import {
+  TransactionCreateViewComponent
+} from "./transactions/views/transaction-create-view/transaction-create-view.component";
+import {
+  TransactionUpdateViewComponent
+} from "./transactions/views/transaction-update-view/transaction-update-view.component";
+import {
+  TransactionsListViewComponent
+} from "./transactions/views/transactions-list-view/transactions-list-view.component";
 
 export const routes: Routes = [
   {
@@ -54,6 +63,21 @@ export const routes: Routes = [
   {
     path: 'accounts',
     component: AccountsListViewComponent,
+    canActivate: [IsAuthenticatedGuard()]
+  },
+  {
+    path: 'transactions/create',
+    component: TransactionCreateViewComponent,
+    canActivate: [IsAuthenticatedGuard()]
+  },
+  {
+    path: 'transactions/update/:id',
+    component: TransactionUpdateViewComponent,
+    canActivate: [IsAuthenticatedGuard()]
+  },
+  {
+    path: 'transactions',
+    component: TransactionsListViewComponent,
     canActivate: [IsAuthenticatedGuard()]
   }
 ];

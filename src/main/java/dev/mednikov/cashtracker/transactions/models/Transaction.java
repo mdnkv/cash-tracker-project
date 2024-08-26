@@ -5,6 +5,7 @@ import dev.mednikov.cashtracker.categories.models.Category;
 import dev.mednikov.cashtracker.users.models.User;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -48,6 +49,7 @@ public class Transaction implements Comparable<Transaction> {
     private String currency;
 
     @Column(name = "transaction_amount", nullable = false)
+    @ColumnDefault("0.0")
     private BigDecimal amount;
 
     @Override
