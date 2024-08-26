@@ -1,5 +1,7 @@
 package dev.mednikov.cashtracker.transactions.dto;
 
+import dev.mednikov.cashtracker.accounts.dto.PaymentAccountDto;
+import dev.mednikov.cashtracker.categories.dto.CategoryDto;
 import dev.mednikov.cashtracker.transactions.models.TransactionType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -18,18 +20,24 @@ public record TransactionDto(
         @NotNull LocalDate transactionDate,
         @NotNull TransactionType type,
         Long paymentAccountId,
-        Long categoryId
+        Long categoryId,
+        String displayedAmount,
+        PaymentAccountDto account,
+        CategoryDto category
 ) {
     public static final class TransactionDtoBuilder {
         private Long id;
-        private Long ownerId;
-        private String description;
-        private String currency;
-        private BigDecimal amount;
-        private LocalDate transactionDate;
-        private TransactionType type;
+        private @NotNull Long ownerId;
+        private @NotNull @NotBlank @Size(max = 250) String description;
+        private @NotNull @NotBlank @Size(max = 3) String currency;
+        private @NotNull @Min(0) BigDecimal amount;
+        private @NotNull LocalDate transactionDate;
+        private @NotNull TransactionType type;
         private Long paymentAccountId;
         private Long categoryId;
+        private String displayedAmount;
+        private PaymentAccountDto account;
+        private CategoryDto category;
 
         public TransactionDtoBuilder() {
         }
@@ -44,6 +52,9 @@ public record TransactionDto(
             this.type = other.type();
             this.paymentAccountId = other.paymentAccountId();
             this.categoryId = other.categoryId();
+            this.displayedAmount = other.displayedAmount();
+            this.account = other.account();
+            this.category = other.category();
         }
 
         public static TransactionDtoBuilder aTransactionDto() {
@@ -95,8 +106,23 @@ public record TransactionDto(
             return this;
         }
 
+        public TransactionDtoBuilder withDisplayedAmount(String displayedAmount) {
+            this.displayedAmount = displayedAmount;
+            return this;
+        }
+
+        public TransactionDtoBuilder withAccount(PaymentAccountDto account) {
+            this.account = account;
+            return this;
+        }
+
+        public TransactionDtoBuilder withCategory(CategoryDto category) {
+            this.category = category;
+            return this;
+        }
+
         public TransactionDto build() {
-            return new TransactionDto(id, ownerId, description, currency, amount, transactionDate, type, paymentAccountId, categoryId);
+            return new TransactionDto(id, ownerId, description, currency, amount, transactionDate, type, paymentAccountId, categoryId, displayedAmount, account, category);
         }
     }
 }

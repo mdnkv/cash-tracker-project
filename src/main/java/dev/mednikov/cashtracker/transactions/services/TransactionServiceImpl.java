@@ -13,6 +13,7 @@ import dev.mednikov.cashtracker.users.repositories.UserRepository;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -100,7 +101,7 @@ public class TransactionServiceImpl implements TransactionService{
     public List<TransactionDto> getTransactions(Long ownerId) {
         return this.transactionRepository.findAllForOwner(ownerId)
                 .stream()
-                .sorted()
+                .sorted(Comparator.reverseOrder())
                 .map(mapper)
                 .toList();
     }

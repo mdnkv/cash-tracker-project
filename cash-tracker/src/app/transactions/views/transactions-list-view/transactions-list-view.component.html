@@ -1,0 +1,108 @@
+<!-- Header -->
+<div class="block">
+  <p class="title is-2">Transactions</p>
+  <p class="subtitle is-5 has-text-grey is-hidden-mobile">Your day-to-day expenses and income go here</p>
+</div>
+
+<!-- Toolbar -->
+<div class="block">
+  <div class="level">
+    <div class="level-left"></div>
+    <div class="level-right">
+      <div class="level-item">
+        <a
+          class="button is-primary"
+          [routerLink]="['/transactions/create']"
+          [class.is-skeleton]="!isLoaded"
+        >
+          <span class="icon">
+            <i class="bx bx-plus"></i>
+          </span>
+          <span>Add transaction</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Items list -->
+<div class="block">
+  @if (isLoaded) {
+    @if (transactionsList.length == 0) {
+      <!-- Empty placeholder -->
+      <div class="message is-info">
+        <div class="message-body">
+          <p>You do not have any transactions yet</p>
+          <p>Maybe it is time to create one? :)</p>
+        </div>
+      </div>
+    } @else {
+      <!-- List categories here -->
+      @for (item of transactionsList; track item.id) {
+        <div>
+          <div class="columns">
+            <div class="column is-2">
+              <p>{{item.transactionDate}}</p>
+            </div>
+            <div class="column">
+              <p>{{item.description}}</p>
+            </div>
+            <div class="column is-2">
+              @if (item.category != undefined){
+                <p>
+                  <span>{{item.category!.name}}</span>
+                </p>
+              } @else {
+                <p class="has-text-grey">(No category)</p>
+              }
+            </div>
+            <div class="column is-2">
+              <p>{{item.displayedAmount!}}</p>
+            </div>
+            <div class="column is-1">
+              <div class="buttons is-right">
+                <div class="dropdown is-hoverable is-right">
+                  <div class="dropdown-trigger">
+                    <button class="button" type="button">
+                      <span class="icon">
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="dropdown-menu">
+                    <div class="dropdown-content">
+                      <a [routerLink]="['/transactions/update', item.id!]" class="dropdown-item">
+                        <span class="icon">
+                          <i class="bx bx-edit-alt"></i>
+                        </span>
+                        <span>Edit</span>
+                      </a>
+                      <a (click)="deleteTransaction(item.id!)" class="dropdown-item">
+                        <span class="icon has-text-danger">
+                          <i class="bx bx-trash-alt"></i>
+                        </span>
+                        <span>Delete</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+        </div>
+      }
+    }
+  } @else {
+    @if (isError) {
+      <div class="message is-danger">
+        <div class="message-body">
+          <p>Something went wrong!</p>
+          <p>Please try again later</p>
+        </div>
+      </div>
+    } @else {
+      <div class="is-skeleton"></div>
+    }
+  }
+</div>
